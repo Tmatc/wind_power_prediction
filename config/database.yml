@@ -1,1 +1,8 @@
-
+local_databases: 
+  username: root
+  passwd: root123
+  host: localhost
+server_databases:
+  username: yfjm
+  passwd: YFjm@5185747
+  host: 47.104.145.176
