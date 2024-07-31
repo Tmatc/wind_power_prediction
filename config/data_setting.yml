@@ -1,0 +1,14 @@
+inputwork: 
+  base: data/raw
+  subsite: [A, B, C, D, DE, E, F]
+  tmp: conv_temp  # tmp：临时数据，用后删除，conv_temp带转换的数据
+outputwork: 
+  base: data/output
+  subsite: []
+  tmp: dasai
+structmapping: 
+  CFTWIND: ['HAPPEN_TIME','LOCATION', 'WDIR', 'WS', 'SITEID', 'SP_WDIR', 'SP_WS', 'PZC']
+  FJPOW: ['HAPPEN_TIME', 'FANNUMBER', 'ACTIVE_POWER', 'WINDSPEED', 'WINDDIRECTION', 'SITEID']
+  SITEPOW: ['HAPPEN_TIME', 'ACTIVE_POWER', 'LIMIT_POWER', 'SITEID']
+  SITETHER: ['HAPPEN_TIME', 'WT_T', 'WT_H', 'WT_P', 'SITEID']
+  qx1: ['time', 'longitude', 'latitude', 'u100', 'u10', 'u200', 'v100', 'v10', 'v200', 'sp', 't2m', 'si200', 'fdir', 'msl','tcc', 'lcc']

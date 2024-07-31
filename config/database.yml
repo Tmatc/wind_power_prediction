@@ -6,3 +6,4 @@ server_databases:
   username: yfjm
   passwd: YFjm@5185747
   host: 47.104.145.176
+sql_server:

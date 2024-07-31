@@ -1,18 +1,16 @@
+import os.path
 import pandas as pd
 from datetime import datetime, timedelta
 import os
 
 
-
-def txt_to_csv(input_path, mapping:dict):
+def txt_to_csv(input_path, output_dir, mapping:dict):
     # 提取文件名中信息
     file_name = input_path.split('/')[-1]
     start_time_str = file_name.split('-')[2][:8]  # '20240724'
     drmno = file_name.split('-')[1][:7]
     farno = mapping.get(drmno) 
     start_time = datetime.strptime(start_time_str, '%Y%m%d') + timedelta(days=1)
-
-
 
     # 读取 txt 文件，逐行读取并过滤掉非数据行
     data = []
@@ -48,14 +46,14 @@ def txt_to_csv(input_path, mapping:dict):
     if os.path.exists(output_dir)==False:
         os.makedirs(output_dir)
     outpath = os.path.join(output_dir, out_file_name)
-    print(outpath, "\t", "===========")
     # 保存为 csv 文件
     output_df.to_csv(outpath, index=False, encoding='utf-8')
 
-    print(f'Data saved to {outpath}')
 
 
 if __name__ == "__main__":
+    from config_loader import load_config
+
     # 读取文件路径
     txt_file_path = 'data/raw/conv_temp/'
     output_dir = 'data/output/dasai'
@@ -66,4 +64,5 @@ if __name__ == "__main__":
     files = os.listdir(txt_file_path)
     for f in files:
         input_path = os.path.join(txt_file_path, f).replace("\\",'/')
-        txt_to_csv(input_path, mapping)
+        print(input_path)
+        # txt_to_csv(input_path, mapping)
