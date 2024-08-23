@@ -1,0 +1,8 @@
+server:
+  hostname: "47.95.239.5"
+  port: 22
+  username: "root"
+  password: "DREy5185747"
+file_path:
+  remote: /data/datasource/newxby/fp
+  local: data/raw/conv_temp

@@ -1,9 +1,13 @@
-local_databases: 
+localhost:
   username: root
   passwd: root123
   host: localhost
-server_databases:
-  username: yfjm
-  passwd: YFjm@5185747
-  host: 47.104.145.176
-sql_server:
+  port: 3306
+  database: dasai
+remote:
+  username: yfzy
+  passwd: Yf@5185747
+  host: 39.105.216.185
+  port: 3306
+  database: dasai
+

@@ -1,14 +1,124 @@
-inputwork: 
+inputwork:
   base: data/raw
-  subsite: [A, B, C, D, DE, E, F]
-  tmp: conv_temp  # tmp：临时数据，用后删除，conv_temp带转换的数据
-outputwork: 
+  subsite: [A, B, C, D, DE, E, F, dsqx1, dsqx2]
+  tmp: conv_temp # tmp：临时数据，用后删除，conv_temp带转换的数据
+outputwork:
   base: data/output
   subsite: []
   tmp: dasai
-structmapping: 
-  CFTWIND: ['HAPPEN_TIME','LOCATION', 'WDIR', 'WS', 'SITEID', 'SP_WDIR', 'SP_WS', 'PZC']
-  FJPOW: ['HAPPEN_TIME', 'FANNUMBER', 'ACTIVE_POWER', 'WINDSPEED', 'WINDDIRECTION', 'SITEID']
-  SITEPOW: ['HAPPEN_TIME', 'ACTIVE_POWER', 'LIMIT_POWER', 'SITEID']
-  SITETHER: ['HAPPEN_TIME', 'WT_T', 'WT_H', 'WT_P', 'SITEID']
-  qx1: ['time', 'longitude', 'latitude', 'u100', 'u10', 'u200', 'v100', 'v10', 'v200', 'sp', 't2m', 'si200', 'fdir', 'msl','tcc', 'lcc']
+
+structmapping_dasai:
+  CFTWIND: [HAPPEN_TIME, LOCATION, WDIR, WS, SITEID, SP_WDIR, SP_WS, PZC]
+  FJPOW: [HAPPEN_TIME, FANNUMBER, ACTIVE_POWER, WINDSPEED, WINDDIRECTION, SITEID]
+  SITEPOW: [HAPPEN_TIME, ACTIVE_POWER, LIMIT_POWER, SITEID]
+  SITETHER: [HAPPEN_TIME, WT_T, WT_H, WT_P, SITEID]
+  Qx1: [time, longitude, latitude, u100, u10, u200, v100, v10, v200, sp, t2m, si200, fdir, msl, tcc, lcc]
+  Meteologica: [WFarm, Date, Time(Local Time), humidity70, humidity80, humidity90, humidity100, humidity120, humidity130, humidity170, pressure10, pressure70, pressure80, pressure90, pressure100, pressure120, pressure130, pressure170, temperature70, temperature80, temperature90, temperature100, temperature120, temperature130, temperature170, direction70, direction80, direction90, direction100, direction120, direction130, direction170, speed70, speed80, speed90, speed100, speed120, speed130, speed170]
+  Farminfo: [场站名称, 编号, 东润编号, 经度, 纬度, 风机额定功率, 装机容量, 机组数量, 最大功率]
+
+sqlmapping_insert_dasai:
+  CFTWIND: INSERT INTO cftwind (cftid, siteid, happen_time, location, wdir, ws, sp_wdir, sp_ws, pzc, w_t, w_h, w_p) VALUES
+  FJPOW: INSERT INTO fjpower (fjid, siteid, happen_time, funnumber, wind_dir, wind_ws, active_power) VALUES
+  SITEPOW: INSERT INTO site_data (spid, siteid, happen_time, active_power, limit_power) VALUES
+  Qx1: INSERT INTO nwp_data (nwpid, time, u100, u10, u200, v100, v10, v200, sp, t2m, si200, fdir, msl, lon, lat, tcc, lcc) VALUES
+  Meteologica: INSERT INTO dr_nwp_data (drqxid, WFarm, DateTime, humidity70, humidity80, humidity90, humidity100, humidity120, humidity130, humidity170, pressure10, pressure70, pressure80, pressure90, pressure100, pressure120, pressure130, pressure170, temperature70, temperature80, temperature90, temperature100, temperature120, temperature130, temperature170, direction70, direction80, direction90, direction100, direction120, direction130, direction170, speed70, speed80, speed90, speed100, speed120, speed130, speed170) VALUES
+  Farminfo: INSERT INTO farm_info (fid, f_name, f_code, farmid, lon, lat) VALUES
+file_tablename_mapping_dasai:
+  CFTWIND: cftwind
+  FJPOW: fjpower
+  SITEPOW: site_data
+  Qx1: nwp_data
+  Meteologica: dr_nwp_data
+  Farminfo: farm_info
+
+columns_mapping_dasai:
+  CFTWIND:
+    HAPPEN_TIME: happen_time
+    LOCATION: location
+    WDIR: wdir
+    WS: ws
+    SITEID: siteid
+    SP_WDIR: sp_wdir
+    SP_WS: sp_ws
+    PZC: pzc
+    WT_T: w_t
+    WT_H: w_h
+    WT_P: w_p
+  FJPOW:
+    HAPPEN_TIME: happen_time
+    FANNUMBER: funnumber
+    ACTIVE_POWER: active_power
+    WINDSPEED: wind_ws
+    WINDDIRECTION: wind_dir
+    SITEID: siteid
+  SITEPOW:
+    HAPPEN_TIME: happen_time
+    ACTIVE_POWER: active_power
+    LIMIT_POWER: limit_power
+    SITEID: siteid
+  Qx1:
+    time: time
+    longitude: lon
+    latitude: lat
+    u100: u100
+    u10: u10
+    u200: u200
+    v100: v100
+    v10: v10
+    v200: v200
+    sp: sp
+    t2m: t2m
+    si200: si200
+    fdir: fdir
+    msl: msl
+    tcc: tcc
+    lcc: lcc
+  Meteologica:
+    WFarm: WFarm
+    humidity70: humidity70
+    humidity80: humidity80
+    humidity90: humidity90
+    humidity100: humidity100
+    humidity120: humidity120
+    humidity130: humidity130
+    humidity170: humidity170
+    pressure10: pressure10
+    pressure70: pressure70
+    pressure80: pressure80
+    pressure90: pressure90
+    pressure100: pressure100
+    pressure120: pressure120
+    pressure130: pressure130
+    pressure170: pressure170
+    temperature70: temperature70
+    temperature80: temperature80
+    temperature90: temperature90
+    temperature100: temperature100
+    temperature120: temperature120
+    temperature130: temperature130
+    temperature170: temperature170
+    direction70: direction70
+    direction80: direction80
+    direction90: direction90
+    direction100: direction100
+    direction120: direction120
+    direction130: direction130
+    direction170: direction170
+    speed70: speed70
+    speed80: speed80
+    speed90: speed90
+    speed100: speed100
+    speed120: speed120
+    speed130: speed130
+    speed170: speed170
+  Farminfo:
+    场站名称: f_name
+    编号: f_code
+    东润编号: farmid
+    经度: lon
+    纬度: lat
+    风机额定功率: ratepower
+    装机容量: capacity
+    机组数量: fjnum
+    最大功率: maxpower
+    
